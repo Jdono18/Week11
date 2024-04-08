@@ -12,11 +12,9 @@ const BMIStore = useBMIStore()
 const { height } = storeToRefs(BMIStore)
 const { weight } = storeToRefs(BMIStore)
 
-// todo add weight
-
 </script>
 
-<template>
+<template>  <!-- prints the HTML below including creating input fields for user height and weight v-model to link refs to pinia store height and weight variables  -->
 
   <h2> This is Body Mass Index form to enter your data </h2>
 
@@ -27,11 +25,6 @@ const { weight } = storeToRefs(BMIStore)
   <input v-model="weight">
 
   <br> <br>
-
- <!-- <button v-on:click="statsEntered"> Calculate </button> -->
-
-
-
 
 </template>
 

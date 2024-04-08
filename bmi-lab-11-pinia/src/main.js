@@ -1,8 +1,8 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createApp } from 'vue'  // sets up vue
+import { createPinia } from 'pinia'  // sets up pinia
 
-import './style.css'
-import App from './App.vue'
+import './style.css'  // imports Css styles
+import App from './App.vue'  // sets parent vue component
 
 
 // create app then mount all in one line
