@@ -1,23 +1,30 @@
 <script setup>
 
-  import { ref } from 'vue'
-  const newStudentName = ref('')
-  const newStarID = ref('')
+  import { ref } from 'vue'  // imports ref api from vue
 
-  const formErrors = ref([])
+  import { useStudentStore } from "../stores/StudentStore.js";  // imports useStudentStore a pinia store that contains reactive data, functions, and computed properties from StudentStore.js
 
-  function addStudent() {
+  const studentStore = useStudentStore()  // initializes studentStore variable which calls useStudentStore function - the defined pinia store in StudentStore.js
+
+
+
+  const newStudentName = ref('')  // initializes newStudentName variable - holds reactive data
+  const newStarID = ref('')   // initializes newStarId variable - holds reactive data
+
+  const formErrors = ref([])  // initializes formErrors variable - holds reactive data
+
+  function addStudent() {   // defines addStudent function
 
     formErrors.value = [] // reset form errors
 
-    if (newStudentName.value.length == 0) {
+    if (newStudentName.value.length == 0) {    // error message for empty newStudentName value
       formErrors.value.push('Student name must be entered')
     }
-    if (newStarID.value.length == 0) {
+    if (newStarID.value.length == 0) {  // error message for empty newStarID value
       formErrors.value.push('StarID must be entered')
     }
 
-    if (formErrors.value.length == 0) {
+    if (formErrors.value.length == 0) {  // if no errors adds student object
 
       let student = {
         name: newStudentName.value,
@@ -25,10 +32,10 @@
         present: false
       }
 
-      //TODO - how to add student?
+      studentStore.addNewStudent(student)  // adds new student object to pinia studentStore
 
-      newStudentName.value = ''
-      newStarID.value = ''
+      newStudentName.value = ''  // resets newStudentName field to empty
+      newStarID.value = ''  // resets newStarID field to empty
     }
   }
 
@@ -36,33 +43,28 @@
 
 <template>
 
-  <div id="new-student-form-errors" class="m-2">
-    <!-- TODO show errors from form validation -->
+  <div id="new-student-form-errors" class="m-2">  <!-- shows errors from new student form in bootstrap alert danger class -->
     <div v-if="formErrors.length > 0" class="alert alert-danger">
       <li v-for="error in formErrors">
         {{error}}
       </li>
-
     </div>
   </div>
 
   <div id="new-student-form" class="card add-student m-2 p-2">
     <h4 class="card-title">Add new student</h4>
 
-    <div class="form-group mb-3">
+    <div class="form-group mb-3">  <!-- v-model newStudentName to name input.  Reactive data type; two-way binding.  Also trims empty user character input -->
       <label for="name">Name</label>
-      <!-- TODO v-model newStudentName -->
       <input v-model.trim="newStudentName" id="name" class="form-control">
     </div>
 
-    <div class="form-group mb-3">
+    <div class="form-group mb-3">  <!-- v-model newStarID to starID input.  Reactive data type; two-way binding.  Also trims empty user character input -->
       <label for="starID">Star ID</label>
-      <!-- TODO v-model newStarID -->
       <input v-model.trim="newStarID" id="starID" class="form-control">
     </div>
 
-    <!-- TODO v-on:click event handler -->
-    <button v-on:click="addStudent" class="btn btn-primary">Add</button>
+    <button v-on:click="addStudent" class="btn btn-primary">Add</button>  <!-- v-on click event handler runs addStudent function on button click -->
 
   </div>
 
